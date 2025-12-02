@@ -12,6 +12,7 @@ class RankingController extends Controller
     {
         $top5 = Result::with('user')
             ->orderByDesc('score')
+            ->orderBy('created_at', 'asc')
             ->take(5)
             ->get();
 
@@ -23,7 +24,7 @@ class RankingController extends Controller
     public function myRanking()
     {
         $results = Result::where('user_id', Auth::id())
-            ->orderByDesc('score')
+            ->orderByDesc('created_at')
             ->get();
 
         return Inertia::render('Ranking/MyRanking', [
