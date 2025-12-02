@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\RankingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,28 +24,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/ranking', [RankingController::class, 'index'])->name('ranking');               
+    Route::get('/ranking/ver-mais', [RankingController::class, 'index'])->name('ranking.more'); 
+    Route::get('/ranking/meu', [RankingController::class, 'myRanking'])->name('ranking.more-user'); 
+
+    Route::get('/quiz/iniciar', [QuizController::class, 'start'])->name('quiz.start');  
+    Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quiz.index');
+    Route::post('/quiz/{id}/result', [QuizController::class, 'store'])->name('quiz.store');
 });
-
-
-Route::get('/ranking', function () {
-    return Inertia::render('Ranking/Index'); // você cria esse componente
-})->middleware(['auth'])->name('ranking');
-
-Route::get('/ranking/ver-mais', function () {
-    return Inertia::render('Ranking/Index');
-})->middleware(['auth'])->name('ranking.more');
-
-Route::get('/quiz/iniciar', function () {
-    return Inertia::render('Quiz/Start'); // você cria esse componente
-})->middleware(['auth'])->name('quiz.start');
-
-Route::get('/quiz', function () {
-    return Inertia::render('Quiz/Index'); // componente principal
-})->middleware(['auth'])->name('quiz.index');
-
-Route::get('/ranking/meu', function () {
-    return Inertia::render('Ranking/MyRanking'); // você cria esse componente
-})->middleware(['auth'])->name('ranking.more-user');
-
 
 require __DIR__.'/auth.php';
