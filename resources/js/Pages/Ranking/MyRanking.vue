@@ -8,7 +8,6 @@ import { Head, Link } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
 
-        <!-- NAVBAR igual ao Dashboard -->
         <template #header>
             <nav class="flex items-center justify-between">
                 <h2 class="text-2xl font-semibold text-gray-800">
@@ -22,7 +21,6 @@ import { Head, Link } from '@inertiajs/vue3';
             </nav>
         </template>
 
-        <!-- Conteúdo das partidas -->
         <div class="py-10 px-4">
             <div class="max-w-4xl mx-auto grid grid-cols-1 gap-6">
 
