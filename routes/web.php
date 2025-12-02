@@ -24,4 +24,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/ranking', function () {
+    return Inertia::render('Ranking/Index'); // você cria esse componente
+})->middleware(['auth'])->name('ranking');
+
+Route::get('/ranking/ver-mais', function () {
+    return Inertia::render('Ranking/Index');
+})->middleware(['auth'])->name('ranking.more');
+
+Route::get('/quiz/iniciar', function () {
+    return Inertia::render('Quiz/Start'); // você cria esse componente
+})->middleware(['auth'])->name('quiz.start');
+
+Route::get('/quiz', function () {
+    return Inertia::render('Quiz/Index'); // componente principal
+})->middleware(['auth'])->name('quiz.index');
+
+Route::get('/ranking/meu', function () {
+    return Inertia::render('Ranking/MyRanking'); // você cria esse componente
+})->middleware(['auth'])->name('ranking.more-user');
+
+
 require __DIR__.'/auth.php';
