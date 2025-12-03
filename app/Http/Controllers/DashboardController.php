@@ -16,9 +16,15 @@ class DashboardController extends Controller
             ->get();
 
         $myTop5 = Result::where('user_id', Auth::id())
-            ->orderByDesc('score')
-            ->take(5)
-            ->get();
+            ->orderBy('created_at')
+            ->get()
+            ->map(function ($result, $index) {
+                $result->partida_num = $index + 1; 
+                return $result;
+            })
+            ->sortByDesc('score')
+            ->values()
+            ->take(5);
 
         return Inertia::render('Dashboard', [
             'top5' => $top5,

@@ -36,14 +36,18 @@ class RankingController extends Controller
 
     public function myRanking()
     {
-        $results = Result::with('quiz')
-            ->where('user_id', Auth::id())
-            ->orderByDesc('score')
-            ->orderBy('time_spent', 'asc')
-            ->get();
+        $results = Result::where('user_id', Auth::id())
+            ->orderBy('created_at') 
+            ->get()
+            ->map(function ($result, $index) {
+                $result->partida_num = $index + 1; 
+                return $result;
+            })
+            ->sortByDesc('score') 
+            ->values(); 
 
-        return Inertia::render('Ranking/MyRanking', [
-            'results' => $results
-        ]);
+            return Inertia::render('Ranking/MyRanking', [
+                'results' => $results
+            ]);
     }
 }

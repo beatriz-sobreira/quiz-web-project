@@ -59,7 +59,7 @@ function formatTime(seconds) {
                     <h3 class="text-xl font-bold mb-4 text-indigo-700">Meu Ranking – Top 5</h3>
                     <ul class="space-y-2 text-gray-700 flex-1">
                         <li v-for="(result, index) in myTop5" :key="result.id">
-                            Partida {{ index + 1 }} — {{ result.score }} pts  — {{ formatTime(result.time_spent) }}
+                           Partida {{ result.partida_num }} — {{ result.score }} pts — {{ formatTime(result.time_spent) }}
                         </li>
                     </ul>
                     <Link :href="route('ranking.more-user')" class="mt-5 inline-block w-full text-center py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">

@@ -34,7 +34,7 @@ function formatTime(seconds) {
 
                 <ul class="space-y-3 text-gray-700">
                     <li v-for="(result, index) in results" :key="result.id">
-                        Partida {{ index + 1 }} — {{ result.score }} pts — {{ formatTime(result.time_spent) }}
+                        Partida {{ result.partida_num }} — {{ result.score }} pts — {{ formatTime(result.time_spent) }}
                     </li>
                 </ul>
 
