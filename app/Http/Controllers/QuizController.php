@@ -27,7 +27,7 @@ class QuizController extends Controller
 
         return Inertia::render('Quiz/Index', [
             'quiz' => $quiz,
-             'questions' => $questions->values()
+            'questions' => $questions->values()
         ]);
     }
 
@@ -38,6 +38,7 @@ class QuizController extends Controller
         $data = $request->validate([
             'score' => 'required|integer',
             'total_questions' => 'required|integer',
+            'time_spent' => 'required|integer',
         ]);
 
         Result::create([
@@ -45,6 +46,7 @@ class QuizController extends Controller
             'quiz_id' => $quiz->id,
             'score' => $data['score'],
             'total_questions' => $data['total_questions'],
+            'time_spent' => $data['time_spent'],
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Quiz finalizado!');

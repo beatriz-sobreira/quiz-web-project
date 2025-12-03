@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { useForm, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
@@ -13,10 +13,24 @@ const currentQuestion = ref(0);
 const selectedOption = ref(null);
 const answers = ref([]);
 const finished = ref(false);
+const timer = ref(0);
+let interval = null;
 
 const form = useForm({
     score: 0,
-    total_questions: props.questions.length
+    total_questions: props.questions.length,
+    time_spent: 0
+});
+
+// Cronômetro
+onMounted(() => {
+    interval = setInterval(() => {
+        timer.value++;
+    }, 1000);
+});
+
+onBeforeUnmount(() => {
+    clearInterval(interval);
 });
 
 // Avança para próxima pergunta
@@ -33,8 +47,10 @@ function nextQuestion() {
     }
 }
 
-// Calcula a pontuação final
+// Calcula pontuação final (não envia ainda)
 function calculateScore() {
+    clearInterval(interval);
+
     let score = 0;
     props.questions.forEach((q, idx) => {
         if (answers.value[idx] && answers.value[idx].is_correct) {
@@ -43,17 +59,23 @@ function calculateScore() {
     });
 
     form.score = score;
-    finished.value = true;
+    form.time_spent = timer.value; // salva o tempo
+    finished.value = true; // mostra a tela de resultado
 }
 
-// Reinicia o quiz
-function restartQuiz() {
-    currentQuestion.value = 0;
-    selectedOption.value = null;
-    answers.value = [];
-    finished.value = false;
-    form.score = 0;
+// Envia resultado e volta para dashboard
+function goDashboard() {
+    form.post(route('quiz.store', props.quiz.id), {
+        onSuccess: () => router.get(route('dashboard'))
+    });
 }
+
+// Cronômetro em mm:ss
+const formattedTime = computed(() => {
+    const minutes = Math.floor(timer.value / 60).toString().padStart(2, '0');
+    const seconds = (timer.value % 60).toString().padStart(2, '0');
+    return `${minutes}:${seconds}`;
+});
 </script>
 
 <template>
@@ -62,12 +84,16 @@ function restartQuiz() {
     <AuthenticatedLayout>
         <div class="py-10 px-4 max-w-2xl mx-auto">
 
+            <!-- Quiz em andamento -->
             <div v-if="!finished">
-                <h2 class="text-xl font-bold mb-4 text-indigo-700">
-                    Pergunta {{ currentQuestion + 1 }} / {{ questions.length }}
-                </h2>
+                <div class="flex justify-between items-center mb-4 text-indigo-700 font-bold text-xl">
+                    <span>Pergunta {{ currentQuestion + 1 }} / {{ questions.length }}</span>
+                    <span>{{ formattedTime }}</span>
+                </div>
 
-                <p class="mb-6 text-gray-700">{{ questions[currentQuestion].text }}</p>
+                <p class="mb-6 text-gray-700 text-2xl font-semibold">
+                    {{ questions[currentQuestion].text }}
+                </p>
 
                 <ul class="space-y-3">
                     <li v-for="option in questions[currentQuestion].options" :key="option.id">
@@ -90,11 +116,16 @@ function restartQuiz() {
                 </button>
             </div>
 
+            <!-- Resultado -->
             <div v-else class="text-center">
-                <h2 class="text-2xl font-bold text-indigo-700 mb-4">Você marcou {{ form.score }} / 100 pontos!</h2>
+                <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+                    Você marcou {{ form.score }} / 100 pontos!
+                </h2>
+                <p class="mb-4 text-gray-500 text-lg">Tempo total: {{ formattedTime }}</p>
+
                 <button
                     class="mt-4 w-full py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition font-semibold"
-                    @click="restartQuiz"
+                    @click="goDashboard"
                 >
                     Voltar para a tela inicial
                 </button>

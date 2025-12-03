@@ -4,17 +4,15 @@ import { router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
-// Recebe o quiz do backend
 const props = defineProps({
     quiz: {
         type: Object,
-        default: () => null // se não houver quiz, fica null
+        default: () => null
     }
 });
 
 const countdown = ref(3);
 
-// Contagem regressiva e redirecionamento
 onMounted(() => {
     // só inicia se o quiz existir
     if (props.quiz && props.quiz.id) {
