@@ -17,7 +17,7 @@ defineProps({
                 <h2 class="text-2xl font-semibold text-gray-800">Dashboard</h2>
                 <div class="flex gap-6 text-lg font-medium">
                     <Link :href="route('dashboard')" class="hover:text-indigo-600 transition">Início</Link>
-                    <Link :href="route('ranking')" class="hover:text-indigo-600 transition">Ranking</Link>
+                    <Link :href="route('ranking.more')" class="hover:text-indigo-600 transition">Ranking Geral</Link>
                 </div>
             </nav>
         </template>
@@ -48,7 +48,7 @@ defineProps({
                 </div>
 
                 <div class="bg-white/80 backdrop-blur p-6 rounded-2xl shadow border border-gray-200">
-                    <h3 class="text-xl font-bold mb-4 text-indigo-700">Seu Ranking – Top 5</h3>
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700">Meu Ranking – Top 5</h3>
                     <ul class="space-y-2 text-gray-700">
                         <li v-for="(result, index) in myTop5" :key="result.id">
                             Partida {{ index + 1 }} — {{ result.score }} pts

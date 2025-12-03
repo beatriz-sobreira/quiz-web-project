@@ -14,10 +14,10 @@ const props = defineProps({
 
         <template #header>
             <nav class="flex items-center justify-between">
-                <h2 class="text-2xl font-semibold text-gray-800">Ranking</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">Ranking Geral</h2>
                 <div class="flex gap-6 text-lg font-medium">
                     <Link :href="route('dashboard')" class="hover:text-indigo-600 transition">Início</Link>
-                    <Link :href="route('ranking')" class="hover:text-indigo-600 transition">Ranking</Link>
+                    <Link :href="route('ranking.more-user')" class="hover:text-indigo-600 transition">Meu Ranking</Link>
                 </div>
             </nav>
         </template>
