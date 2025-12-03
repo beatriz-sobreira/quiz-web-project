@@ -1,9 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+
 defineProps({
     top5: Array,   
-    myTop5: Array   
+    myTop5: Array  
 });
 </script>
 
@@ -24,9 +25,8 @@ defineProps({
         <div class="py-10 px-4">
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                <!-- Ranking Geral -->
                 <div class="bg-white/80 backdrop-blur p-6 rounded-2xl shadow border border-gray-200">
-                    <h3 class="text-xl font-bold mb-4 text-indigo-700">🏆 Ranking Geral – Top 5</h3>
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700">Ranking Geral – Top 5</h3>
                     <ul class="space-y-2 text-gray-700">
                         <li v-for="(result, index) in top5" :key="result.id">
                             {{ index + 1 }}. {{ result.user.name }} — {{ result.score }} pts
@@ -48,10 +48,10 @@ defineProps({
                 </div>
 
                 <div class="bg-white/80 backdrop-blur p-6 rounded-2xl shadow border border-gray-200">
-                    <h3 class="text-xl font-bold mb-4 text-indigo-700">📊 Seu Ranking – Top 5</h3>
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700">Seu Ranking – Top 5</h3>
                     <ul class="space-y-2 text-gray-700">
                         <li v-for="(result, index) in myTop5" :key="result.id">
-                            {{ index + 1 }} — {{ result.score }} pts
+                            Partida {{ index + 1 }} — {{ result.score }} pts
                         </li>
                     </ul>
                     <Link :href="route('ranking.more-user')" class="mt-5 inline-block w-full text-center py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">

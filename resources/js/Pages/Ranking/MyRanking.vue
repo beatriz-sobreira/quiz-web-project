@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
-defineProps({
+
+const props = defineProps({
     results: Array 
 });
 </script>
@@ -21,16 +22,15 @@ defineProps({
         </template>
 
         <div class="py-10 px-4">
-            <div class="max-w-4xl mx-auto grid grid-cols-1 gap-6">
+            <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur p-8 rounded-2xl shadow border border-gray-200">
 
-                <div class="bg-white/80 backdrop-blur p-6 rounded-2xl shadow border border-gray-200">
-                    <h3 class="text-xl font-bold mb-4 text-indigo-700">🏅 Todas as suas partidas</h3>
-                    <ul class="space-y-2 text-gray-700">
-                        <li v-for="(result, index) in results" :key="result.id">
-                            Partida {{ index + 1 }} — {{ result.score }} pts
-                        </li>
-                    </ul>
-                </div>
+                <h3 class="text-2xl font-bold text-indigo-700 mb-6">Suas Partidas</h3>
+
+                <ul class="space-y-3 text-gray-700">
+                    <li v-for="(result, index) in results" :key="result.id">
+                        Partida {{ index + 1 }} — {{ result.score }} pts
+                    </li>
+                </ul>
 
             </div>
         </div>

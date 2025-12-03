@@ -12,7 +12,7 @@ class QuizController extends Controller
 {
     public function start()
     {
-        $quiz = Quiz::with('questions.options')->first(); // pega o primeiro quiz real do banco
+        $quiz = Quiz::with('questions.options')->first(); 
 
         return Inertia::render('Quiz/Start', [
             'quiz' => $quiz

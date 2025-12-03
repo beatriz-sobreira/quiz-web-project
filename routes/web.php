@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/ranking', [RankingController::class, 'index'])->name('ranking');
-    Route::get('/ranking/ver-mais', [RankingController::class, 'index'])->name('ranking.more');
+    Route::get('/ranking/ver-mais', [RankingController::class, 'verMais'])->name('ranking.more');
     Route::get('/ranking/meu', [RankingController::class, 'myRanking'])->name('ranking.more-user');
 
     Route::get('/quiz/start', [QuizController::class, 'start'])->name('quiz.start'); 

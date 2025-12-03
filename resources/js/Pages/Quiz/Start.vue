@@ -14,7 +14,6 @@ const props = defineProps({
 const countdown = ref(3);
 
 onMounted(() => {
-    // só inicia se o quiz existir
     if (props.quiz && props.quiz.id) {
         const timer = setInterval(() => {
             countdown.value--;
@@ -39,7 +38,6 @@ onMounted(() => {
                 </h3>
 
                 <p class="text-gray-700 text-xl">
-                    <!-- Se não tiver quiz, mostra mensagem alternativa -->
                     <span v-if="props.quiz && props.quiz.id">
                         Começando em {{ countdown }} segundos
                     </span>

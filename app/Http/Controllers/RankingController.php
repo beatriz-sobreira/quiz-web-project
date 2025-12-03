@@ -8,23 +8,38 @@ use Inertia\Inertia;
 
 class RankingController extends Controller
 {
+
     public function index()
     {
-        $top5 = Result::with('user')
+        $results = Result::with('user')
             ->orderByDesc('score')
-            ->orderBy('created_at', 'asc')
+            ->orderBy('time_spent', 'asc')
             ->take(5)
             ->get();
 
-        return Inertia::render('Ranking/Index', [
-            'top5' => $top5
-        ]);
+            return Inertia::render('Ranking/Index', [
+                'results' => $results
+            ]);
+    }
+
+    public function verMais()
+    {
+       $results = Result::with('user')
+            ->orderByDesc('score')
+            ->orderBy('time_spent', 'asc')
+            ->get();
+
+            return Inertia::render('Ranking/Index', [
+                'results' => $results
+            ]);
     }
 
     public function myRanking()
     {
-        $results = Result::where('user_id', Auth::id())
-            ->orderByDesc('created_at')
+        $results = Result::with('quiz')
+            ->where('user_id', Auth::id())
+            ->orderByDesc('score')
+            ->orderBy('time_spent', 'asc')
             ->get();
 
         return Inertia::render('Ranking/MyRanking', [

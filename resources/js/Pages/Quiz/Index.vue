@@ -79,7 +79,6 @@ const formattedTime = computed(() => {
     <AuthenticatedLayout>
         <div class="py-10 px-4 max-w-2xl mx-auto">
 
-            <!-- Quiz em andamento -->
             <div v-if="!finished">
                 <div class="flex justify-between items-center mb-4 text-indigo-700 font-bold text-xl">
                     <span>Pergunta {{ currentQuestion + 1 }} / {{ questions.length }}</span>
@@ -111,7 +110,6 @@ const formattedTime = computed(() => {
                 </button>
             </div>
 
-            <!-- Resultado -->
             <div v-else class="text-center">
                 <h2 class="text-3xl font-bold text-indigo-700 mb-4">
                     Você marcou {{ form.score }} / 100 pontos!
