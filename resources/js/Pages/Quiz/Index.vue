@@ -22,7 +22,6 @@ const form = useForm({
     time_spent: 0
 });
 
-// Cronômetro
 onMounted(() => {
     interval = setInterval(() => {
         timer.value++;
@@ -33,7 +32,6 @@ onBeforeUnmount(() => {
     clearInterval(interval);
 });
 
-// Avança para próxima pergunta
 function nextQuestion() {
     if (selectedOption.value !== null) {
         answers.value[currentQuestion.value] = selectedOption.value;
@@ -47,7 +45,6 @@ function nextQuestion() {
     }
 }
 
-// Calcula pontuação final (não envia ainda)
 function calculateScore() {
     clearInterval(interval);
 
@@ -59,18 +56,16 @@ function calculateScore() {
     });
 
     form.score = score;
-    form.time_spent = timer.value; // salva o tempo
-    finished.value = true; // mostra a tela de resultado
+    form.time_spent = timer.value; 
+    finished.value = true; 
 }
 
-// Envia resultado e volta para dashboard
 function goDashboard() {
     form.post(route('quiz.store', props.quiz.id), {
         onSuccess: () => router.get(route('dashboard'))
     });
 }
 
-// Cronômetro em mm:ss
 const formattedTime = computed(() => {
     const minutes = Math.floor(timer.value / 60).toString().padStart(2, '0');
     const seconds = (timer.value % 60).toString().padStart(2, '0');
