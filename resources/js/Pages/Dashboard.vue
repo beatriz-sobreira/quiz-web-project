@@ -44,10 +44,10 @@ function formatTime(seconds) {
                 </div>
 
                 <div class="bg-white/80 backdrop-blur p-6 rounded-2xl shadow border border-gray-200 flex flex-col items-center text-center">
-                    <div class="w-full h-40 border border-dashed border-gray-300 rounded-xl mb-6 overflow-hidden">
+                    <div class="w-full h-40 rounded-xl mb-6 overflow-hidden">
                         <img src="/img/quiz-no-estilo-quadrinhos-pop-art_175838-505.jpg" alt="Logo" class="w-full h-full object-cover" />
                     </div>
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Pronto para começar?</h3>
+                    <h3 class="text-xl font-bold text-[#00BACB] mb-4">Pronto para começar?</h3>
                     <div class="mt-auto w-full">
                         <Link :href="route('quiz.start')" class="mt-5 inline-block w-full text-center py-2 bg-[#00BACB] text-white rounded-xl hover:bg-[#02ADC5] transition">
                             Iniciar Quiz
