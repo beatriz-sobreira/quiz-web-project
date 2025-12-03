@@ -12,8 +12,9 @@ class QuizController extends Controller
 {
     public function start()
     {
-        $quiz = Quiz::with('questions.options')->first();
-        return Inertia::render('Quiz/Index', [
+        $quiz = Quiz::with('questions.options')->first(); // pega o primeiro quiz real do banco
+
+        return Inertia::render('Quiz/Start', [
             'quiz' => $quiz
         ]);
     }
@@ -21,8 +22,12 @@ class QuizController extends Controller
     public function show($id)
     {
         $quiz = Quiz::with('questions.options')->findOrFail($id);
+
+        $questions = $quiz->questions->shuffle()->take(10);
+
         return Inertia::render('Quiz/Index', [
-            'quiz' => $quiz
+            'quiz' => $quiz,
+             'questions' => $questions->values()
         ]);
     }
 
