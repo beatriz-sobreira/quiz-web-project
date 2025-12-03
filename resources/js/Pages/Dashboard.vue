@@ -49,7 +49,7 @@ function formatTime(seconds) {
                     </div>
                     <h3 class="text-xl font-bold text-indigo-700 mb-4">Pronto para começar?</h3>
                     <div class="mt-auto w-full">
-                        <Link :href="route('quiz.start')" class="mt-5 inline-block w-full text-center py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
+                        <Link :href="route('quiz.start')" class="mt-5 inline-block w-full text-center py-2 bg-[#00BACB] text-white rounded-xl hover:bg-[#02ADC5] transition">
                             Iniciar Quiz
                         </Link>
                     </div>
