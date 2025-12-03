@@ -5,6 +5,12 @@ import { Head, Link } from '@inertiajs/vue3';
 const props = defineProps({
     results: Array 
 });
+
+function formatTime(seconds) {
+    const min = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const sec = (seconds % 60).toString().padStart(2, '0');
+    return `${min}:${sec}`;
+}
 </script>
 
 <template>
@@ -28,7 +34,7 @@ const props = defineProps({
 
                 <ul class="space-y-3 text-gray-700">
                     <li v-for="(result, index) in results" :key="result.id">
-                        Partida {{ index + 1 }} — {{ result.score }} pts
+                        Partida {{ index + 1 }} — {{ result.score }} pts — {{ formatTime(result.time_spent) }}
                     </li>
                 </ul>
 
